@@ -1,247 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MayPhenol Links</title>
+    <title>MayPhenol | Model Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义样式 -->
     <style>
+        /* 基础样式 */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #ffe6e6;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            color: #333;
         }
-
-        .container {
-            background-color: #ffc8c8;
-            border-radius: 20px;
-            padding: 20px;
-            max-width: 350px;
-            text-align: center;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* -------- Avatar & Halo -------- */
-        .avatar-wrapper {
-            position: relative;
-            width: 120px; /* slightly bigger to leave room for halo */
-            height: 120px;
-            margin: 0 auto 10px auto;
-        }
-
-        .profile-pic {
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            display: block;
-            position: relative;
-            z-index: 1;
-        }
-
-        .avatar-wrapper::before{
-            content: "";
-            position: absolute;
-            /* 让光环略大于头像 */
-            inset: -7px;
-            border-radius: 50%;
-            /* 渐变色+透明边缘 */
-            background: radial-gradient(
-                circle at center,
-                rgba(255,255,255,0.85) 0%,
-                rgba(255, 255, 255, 0.787)   55%,
-                rgba(255,255,0,0.00)   70%
-            );
-            pointer-events: none;      /* 保证不挡住点击 */
-            animation: haloGlow 4s ease-in-out infinite;
-            z-index: 0;                /* 位于头像下方 */
-        }
-
-
-
-/* 发光呼吸动画 */
-@keyframes haloGlow{
-    0%,100%{ opacity: .8; transform: scale(1);   }
-    50%    { opacity: 1;  transform: scale(1.05); }
-}
-
-    
-
         
-        /* -------------------------------- */
-
-        .name {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
+        /* 强调色 */
+        :root {
+            --primary-color: #ff9e9e;
+            --secondary-color: #ffc8c8;
+            --accent-color: #ff6b6b;
+            --text-color: #555;
         }
-
-        .alias {
-            font-size: 0.9em;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        .description {
-            font-size: 1em;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .social-icons a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background-color: #fff;
-            border-radius: 50%;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: box-shadow 0.2s ease;
-            animation: wave 2s infinite ease-in-out;
-        }
-
-        /* staggered animation delays for each icon */
-        .social-icons a:nth-child(1) { animation-delay: 0s; }
-        .social-icons a:nth-child(2) { animation-delay: 0.2s; }
-        .social-icons a:nth-child(3) { animation-delay: 0.4s; }
-        .social-icons a:nth-child(4) { animation-delay: 0.6s; }
-        .social-icons a:nth-child(5) { animation-delay: 0.8s; }
-
-        .social-icons a:hover {
-            animation-play-state: paused;
-            transform: translateY(-3px);
-            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .social-icons img {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* ------------ Title style (fade-in + slow blink) ------------- */
-        .link-title {
-            font-size: 1em;
-            font-weight: bold;
-            color: #555;
-            margin: -10px 0 15px 0;
-            opacity: 0;
-            line-height: 1.4;
-            animation: fadeIn 0.8s ease forwards, blink 4s ease-in-out 1s infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.35; }
-        }
-
-        /* ------------------------------------- */
-
+        
+        /* 浮动动画 */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-2px); }
+            50% { transform: translateY(-8px); }
         }
+        
+        /* 移动端样式 */
+        @media (max-width: 991.98px) {
+            .container-mobile {
+                background-color: var(--secondary-color);
+                border-radius: 20px;
+                padding: 3vw;
+                width: 70vw;
+                text-align: center;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                margin: 20px;
+            }
+            
+            /* 隐藏桌面版 */
+            .desktop-version {
+                display: none;
+            }
 
-        .links a {
-            display: block;
-            background-color: #ff9e9e;
-            color: #000;
-            text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin: 10px 0;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            animation: float 2s infinite ease-in-out;
-            transition: box-shadow 0.2s ease;
-        }
-
-        .links a:hover {
+            .mobile-version
+            {
+                display: flex;            /* 把自己变成弹性容器 */
+                justify-content: center;  /* 主轴(水平)居中 */
+                align-items: center;      /* 交叉轴(垂直)居中 */
+                height: 100vh;        /* 占满整屏高度，以便垂直居中生效 */
+                margin: 0;                /* 保证没有额外外边距干扰 */
+            }
+            /* 头像光晕效果 */
+            .avatar-wrapper {
+                position: relative;
+                width: 26vw;
+                height: 26vw;
+                margin: 0 auto 10px auto;
+            }
+            
+            .profile-pic {
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: relative;
+                z-index: 1;
+                object-fit: cover;
+                border: 3px solid white;
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            }
+            
+            .avatar-wrapper::before{
+                content: "";
+                position: absolute;
+                inset: -7px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle at center,
+                    rgba(255,255,255,0.85) 0%,
+                    rgba(255, 255, 255, 0.787) 55%,
+                    rgba(255,255,0,0.00) 70%
+                );
+                pointer-events: none;
+                animation: haloGlow 4s ease-in-out infinite;
+                z-index: 0;
+            }
+            
+            @keyframes haloGlow{
+                0%,100%{ opacity: .8; transform: scale(1); }
+                50%    { opacity: 1; transform: scale(1.05); }
+            }
+            
+            /* 文本样式 */
+            .name {
+                font-size: 5vw;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #333;
+            }
+            
+            .alias {
+                font-size: 3vw;
+                color: var(--text-color);
+                margin-bottom: 10px;
+            }
+            
+            .description {
+                font-size: 3vw;
+                color: var(--text-color);
+                margin-bottom: 20px;
+                line-height: 1.5;
+            }
+            
+            /* 社交图标 - 添加浮动动画 */
+            .social-icons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+            
+            .social-icons a {
+                display: inline-block;
+                width: 8vw;
+                height: 8vw;
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.3s ease;
+                animation: float 3s infinite ease-in-out;
+            }
+            
+            .social-icons a:nth-child(1) { animation-delay: 0s; }
+            .social-icons a:nth-child(2) { animation-delay: 0.2s; }
+            .social-icons a:nth-child(3) { animation-delay: 0.4s; }
+            .social-icons a:nth-child(4) { animation-delay: 0.6s; }
+            .social-icons a:nth-child(5) { animation-delay: 0.8s; }
+            
+            .social-icons a:hover {
             animation-play-state: paused;
             transform: translateY(-3px);
             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+             }
+            
+            .social-icons a:active {
+                transform: translateY(2px);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            }
+            
+            .social-icons img {
+                width: 20px;
+                height: 20px;
+                transition: all 0.3s ease;
+            }
+            
+            /* 标题动画 */
+            .link-title {
+                font-size: 3.5vw;
+                font-weight: bold;
+                color: #555;
+                margin: -10px 0 15px 0;
+                opacity: 0;
+                line-height: 1.4;
+                animation: fadeIn 0.8s ease forwards, blink 4s ease-in-out 1s infinite;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(5px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+            
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0.35; }
+            }
+            
+            /* 链接按钮 - 添加浮动动画 */
+            .links a {
+                display: block;
+                background-color: var(--primary-color);
+                color: #000;
+                text-decoration: none;
+                font-size: 3.2vw;
+                height: 8vw;
+                border-radius: 2vw;
+                padding: 10px 15px;
+                margin: 10px 5px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                animation: float 3s infinite ease-in-out;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .links a:nth-child(1) { animation-delay: 0s; }
+            .links a:nth-child(2) { animation-delay: 0.3s; }
+            .links a:nth-child(3) { animation-delay: 0.6s; }
+            .links a:nth-child(4) { animation-delay: 0.9s; }
+            
+            .links a:hover {
+            animation-play-state: paused;
+            transform: translateY(-3px);
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            color: white;
+            }
+            
+            .links a:hover::before {
+                left: 100%;
+            }
+            
+            .links a:active {
+                transform: translateY(2px);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            }
+            
+            /* 页脚 */
+            .footer {
+                margin-top: 20px;
+                font-size: 3vw;
+                color: #777;
+            }
         }
+        
+        /* 桌面端样式 */
+        @media (min-width: 900px) {
+            .mobile-version {
+                display: none;
+            }
+            
+            .desktop-version
+            {
+                display: flex;            /* 把自己变成弹性容器 */
+                justify-content: center;  /* 主轴(水平)居中 */
+                align-items: center;      /* 交叉轴(垂直)居中 */
+                min-height: 100vh;        /* 占满整屏高度，以便垂直居中生效 */
+                margin: 0;                /* 保证没有额外外边距干扰 */
+            }
+            .desktop-container {
+                max-width: 92vw;
+                margin: 50px auto;
+                padding: 10px;
+            }
+            
+            /* 头部区域 - 左右分栏布局 */
+            .desktop-header {
+                background: linear-gradient(135deg, var(--secondary-color) 0%, #ffd6d6 100%);
+                border-radius: 20px;
+                padding: 40px;
+                box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+                margin-bottom: 40px;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .desktop-header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 50%;
+                height: 100%;
+                background: url() center/cover no-repeat; 
+                opacity: 0.1;
+                z-index: 0;
+            }
+            
+            .desktop-header-content {
+                position: relative;
+                z-index: 1;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            /* 左侧：头像和个人信息 */
+            .desktop-header-left {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 0 40px;
+            }
+            
+            .desktop-avatar {
+                position: relative;
+                width: 220px;
+                height: 220px;
+                margin: 0 auto 30px;
+            }
+            
+            .desktop-avatar img {
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+                display: block;
+                position: relative;
+                z-index: 1;
+                object-fit: cover;
+                border: 5px solid white;
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            }
+            
+            .desktop-avatar::before {
+                content: "";
+                position: absolute;
+                inset: -15px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle at center,
+                    rgba(255,255,255,0.85) 0%,
+                    rgba(255, 255, 255, 0.787) 55%,
+                    rgba(255,255,0,0.00) 70%
+                );
+                pointer-events: none;
+                animation: haloGlow 4s ease-in-out infinite;
+                z-index: 0;
+            }
+            
+            /* 与移动端一致的文本样式 */
+            .desktop-name {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #333;
+            }
+            
+            .desktop-alias {
+                font-size: 0.9em;
+                color: var(--text-color);
+                margin-bottom: 10px;
+            }
+            
+            .desktop-description {
+                font-size: 1em;
+                color: var(--text-color);
+                max-width: 300px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+            
+            /* 与移动端一致的圆形社交按钮 - 添加浮动动画 */
+            .desktop-social {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin-top: 10px;
+            }
+            
+            .desktop-social a {
+                display: inline-block;
+                width: 40px;
+                height: 40px;
+                background-color: #fff;
+                border-radius: 50%;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.3s ease;
+                animation: float 3s infinite ease-in-out;
+            }
+            
+            .desktop-social a:nth-child(1) { animation-delay: 0s; }
+            .desktop-social a:nth-child(2) { animation-delay: 0.2s; }
+            .desktop-social a:nth-child(3) { animation-delay: 0.4s; }
+            .desktop-social a:nth-child(4) { animation-delay: 0.6s; }
+            .desktop-social a:nth-child(5) { animation-delay: 0.8s; }
+            
+            .desktop-social a:hover {
+                animation-play-state: paused;
+                transform: translateY(-5px) scale(1.1);
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            }
+            
+            
+            .desktop-social img {
+                width: 20px;
+                height: 20px;
+                transition: all 0.3s ease;
+            }
 
-        .links a:active {
-            transform: translateY(2px);
-            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        }
+            .desktop-social a:active {
+                transform: translateY(2px);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 0.8em;
-            color: #777;
+            /* 右侧：购买渠道 - 突出显示 - 添加浮动动画 */
+            .desktop-header-right {
+                flex: 2;
+                display: flex;
+                flex-direction: column;
+                padding: 0 40px;
+            }
+            
+            .desktop-purchase-title {
+                font-size: 1.5em;
+                font-weight: bold;
+                margin-bottom: 30px;
+                text-align: center;
+                color: var(--accent-color);
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            }
+            
+            .desktop-purchase-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .purchase-link {
+                display: flex;
+                align-items: center;
+                background-color: var(--primary-color);
+                color: #000;
+                text-decoration: none;
+                font-size: 1.2em;
+                border-radius: 15px;
+                padding: 10px;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                animation: float 3s infinite ease-in-out;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .purchase-link:nth-child(1) { animation-delay: 0s; }
+            .purchase-link:nth-child(2) { animation-delay: 0.3s; }
+            .purchase-link:nth-child(3) { animation-delay: 0.6s; }
+            .purchase-link:nth-child(4) { animation-delay: 0.9s; }
+            
+            
+            
+            .purchase-link:hover {
+                animation-play-state: paused;
+                transform: translateY(-8px);
+                box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+                color: white;
+            }
+            
+            
+            .purchase-link:active {
+                transform: translateY(2px);
+                box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            }
+            
+            .purchase-icon {
+                font-size: 1.8em;
+                margin-right: 20px;
+                width: 30px;
+                text-align: center;
+            }
+            
+            /* 页脚 */
+            .desktop-footer {
+                text-align: center;
+                margin-top: 30px;
+                padding: 20px;
+                color: #777;
+                font-size: 0.9em;
+            }
         }
+ 
+        
+
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <!-- Avatar with halo -->
-        <div class="avatar-wrapper">
-            <img src="avatar.jpg" alt="Profile Picture" class="profile-pic" />
+    <!-- 移动版 (保持原有风格) -->
+    <div class="mobile-version">
+        <div class="container-mobile">
+            <!-- Avatar with halo -->
+            <div class="avatar-wrapper">
+                <img src="avatar.jpg" alt="Profile Picture" class="profile-pic" />
+            </div>
+
+            <div class="name">MayPhenol</div>
+            <div class="alias">五月酚 &amp; 芝士好椰</div>
+            <div class="description">✨欢迎进入我的创作世界！<br>
+                Welcome to my creative world!</div>
+
+            <!-- 圆形社交按钮 -->
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@MayPhenol" target="_blank"><img src="youtube-icon.png" alt="YouTube"></a>
+                <a href="https://x.com/MayPhenol" target="_blank"><img src="x-icon.png" alt="X"></a>
+                <a href="https://github.com/mayphenol" target="_blank"><img src="github-icon.png" alt="GitHub"></a>
+                <a href="https://t.co/7t9rv6eIDw" target="_blank"><img src="bilibili-icon.png" alt="Bilibili"></a>
+                <a href="https://v.douyin.com/iDT36PA2" target="_blank"><img src="douyin-icon.png" alt="Douyin"></a>
+            </div>
+
+            <!-- 标题（中英双语，慢速闪烁） -->
+            <div class="link-title">
+                正版购买渠道 ↓ Official Stores
+            </div>
+
+            <!-- 方块购买链接 -->
+            <div class="links">
+                <a href="https://mayphenol.usells.com/" target="_blank">🍦甜品店→</a>
+                <a href="https://perohub.com/users/659ec37175ac153c2e3136b0" target="_blank">🍦Store (PayPal available)→</a>
+                <a href="https://afdian.com/a/mayphenol" target="_blank">🍦爱发电→</a>
+                <a href="https://t.co/7t9rv6eIDw" target="_blank">🍦哔哩哔哩Bilibili→</a>
+            </div>
+
+            <footer class="footer">© <span id="year-mobile"></span> Created by MayPhenol</footer>
         </div>
+    </div>
 
-        <div class="name">MayPhenol</div>
-        <div class="alias">五月酚 &amp; 芝士好椰</div>
-        <div class="description">✨欢迎进入我的创作世界！<br>
-            Welcome to my creative world!</div>
-
-        <!-- 圆形社交按钮 -->
-        <div class="social-icons">
-            <a href="https://www.youtube.com/@MayPhenol" target="_blank"><img src="youtube-icon.png" alt="YouTube"></a>
-            <a href="https://x.com/MayPhenol" target="_blank"><img src="x-icon.png" alt="X"></a>
-            <a href="https://github.com/mayphenol" target="_blank"><img src="github-icon.png" alt="GitHub"></a>
-            <a href="https://t.co/7t9rv6eIDw" target="_blank"><img src="bilibili-icon.png" alt="Bilibili"></a>
-            <a href="https://v.douyin.com/iDT36PA2" target="_blank"><img src="douyin-icon.png" alt="Douyin"></a>
+    <!-- 桌面版 (使用Bootstrap重新设计) -->
+    <div class="desktop-version">
+        <div class="desktop-container">
+            <!-- 头部区域 - 左右分栏布局 -->
+            <div class="desktop-header">
+                <div class="desktop-header-content">
+                    <!-- 左侧：头像和个人信息 (与移动端保持一致) -->
+                    <div class="desktop-header-left">
+                        <div class="desktop-avatar">
+                            <img src="avatar.jpg" alt="MayPhenol Profile Picture">
+                        </div>
+                        
+                        <div class="desktop-info">
+                            <div class="desktop-name">MayPhenol</div>
+                            <div class="desktop-alias">五月酚 &amp; 芝士好椰</div>
+                            <div class="desktop-description">✨欢迎进入我的创作世界！<br>
+                                Welcome to my creative world!</div>
+                        </div>
+                        
+                        <div class="desktop-social">
+                            <a href="https://www.youtube.com/@MayPhenol" target="_blank"><img src="youtube-icon.png" alt="YouTube"></a>
+                            <a href="https://x.com/MayPhenol" target="_blank"><img src="x-icon.png" alt="X"></a>
+                            <a href="https://github.com/mayphenol" target="_blank"><img src="github-icon.png" alt="GitHub"></a>
+                            <a href="https://t.co/7t9rv6eIDw" target="_blank"><img src="bilibili-icon.png" alt="Bilibili"></a>
+                            <a href="https://v.douyin.com/iDT36PA2" target="_blank"><img src="douyin-icon.png" alt="Douyin"></a>
+                        </div>
+                    </div>
+                    
+                    <!-- 右侧：购买渠道 -->
+                    <div class="desktop-header-right">
+                        <div class="desktop-purchase-title">正版购买渠道 ↓ Official Stores</div>
+                        <div class="desktop-purchase-grid">
+                            <a href="https://mayphenol.usells.com/" target="_blank" class="purchase-link">
+                                <div class="purchase-icon">🍦</div>
+                                <span>甜品店→</span>
+                            </a>
+                            <a href="https://perohub.com/users/659ec37175ac153c2e3136b0" target="_blank" class="purchase-link">
+                                <div class="purchase-icon">🍦</div>
+                                <span>Store (PayPal available)→</span>
+                            </a>
+                            <a href="https://afdian.com/a/mayphenol" target="_blank" class="purchase-link">
+                                <div class="purchase-icon">🍦</div>
+                                <span>爱发电→</span>
+                            </a>
+                            <a href="https://t.co/7t9rv6eIDw" target="_blank" class="purchase-link">
+                                <div class="purchase-icon">🍦</div>
+                                <span>哔哩哔哩Bilibili→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 页脚 -->
+            <div class="desktop-footer">
+                © <span id="year-desktop"></span> Created by MayPhenol
+            </div>
         </div>
-
-        <!-- 标题（中英双语，慢速闪烁） -->
-        <div class="link-title">
-            正版购买渠道 ↓ Official Stores
-        </div>
-
-        <!-- 方块购买链接 -->
-        <div class="links">
-            <a href="https://mayphenol.usells.com/" target="_blank">🍦甜品店→</a>
-            <a href="https://perohub.com/users/659ec37175ac153c2e3136b0" target="_blank">🍦Store (PayPal available)→</a>
-            <a href="https://afdian.com/a/mayphenol" target="_blank">🍦爱发电→</a>
-            <a href="https://t.co/7t9rv6eIDw" target="_blank">🍦哔哩哔哩Bilibili→</a>
-        </div>
-
-        <footer class="footer">© <span id="year"></span> Created by MayPhenol</footer>
     </div>
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QRV0EW78RS"></script>
     <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // 设置年份
+        document.getElementById('year-mobile').textContent = new Date().getFullYear();
+        document.getElementById('year-desktop').textContent = new Date().getFullYear();
+        
+        // Google Analytics
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-QRV0EW78RS');
     </script>
 </body>
-
-</html>
+</html>    
